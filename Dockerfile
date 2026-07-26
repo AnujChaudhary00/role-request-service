@@ -5,7 +5,8 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 COPY . .
-RUN pnpm exec prisma generate && pnpm build
+ARG DATABASE_URL=postgresql://dummy:dummy@localhost:5432/dummy
+RUN DATABASE_URL=${DATABASE_URL} pnpm exec prisma generate && pnpm build
 
 # Stage 2 — production dependencies only
 FROM node:22-slim AS prod-deps
