@@ -21,7 +21,7 @@ export class UserRoleService {
   async revoke(id: string) {
     const entry = await this.prisma.userHasRole.findUnique({ where: { id } });
     if (!entry) throw new NotFoundException(`UserRole entry ${id} not found`);
-    this.logger.log(`Revoking role ${entry.roleId} from user ${entry.userId}`);
+    this.logger.log(`Revoking role ${entry.roleId} from user is ${entry.userId}`);
     return this.prisma.userHasRole.delete({ where: { id } });
   }
 }
